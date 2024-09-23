@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperChargedStreams", "SuperChargedStreams.csproj", "{67A89D43-E647-421C-BFFB-4A3E3BD8E8EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperChargedStreams", "BlazorProject\SuperChargedStreams.csproj", "{67A89D43-E647-421C-BFFB-4A3E3BD8E8EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryManagement", "..\MemoryManagement\MemoryManagement.csproj", "{AD08812D-6ECD-4531-BB85-422FCC3FE38F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryManagement", "MemoryManagement\MemoryManagement.csproj", "{AD08812D-6ECD-4531-BB85-422FCC3FE38F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleProtocol", "..\SimpleProtocol\SimpleProtocol.csproj", "{E0D361D4-28DC-4A4A-AFAC-92F5014C565B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleProtocol", "SimpleProtocol\SimpleProtocol.csproj", "{E0D361D4-28DC-4A4A-AFAC-92F5014C565B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HierarchicalStatistics", "HierarchicalStatistics\HierarchicalStatistics.csproj", "{251AF064-55D1-4616-B115-E52C84798487}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{E0D361D4-28DC-4A4A-AFAC-92F5014C565B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0D361D4-28DC-4A4A-AFAC-92F5014C565B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0D361D4-28DC-4A4A-AFAC-92F5014C565B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{251AF064-55D1-4616-B115-E52C84798487}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{251AF064-55D1-4616-B115-E52C84798487}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{251AF064-55D1-4616-B115-E52C84798487}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{251AF064-55D1-4616-B115-E52C84798487}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
