@@ -1,0 +1,84 @@
+﻿@page "/customer_data"
+@using System.Numerics
+@rendermode InteractiveServer
+
+@inject DataService DataService
+
+<h3>Customer Data Streaming with IAsyncEnumerable</h3>
+
+<div class="mb-4">
+    <MudTextField @bind-Value="nameFilter" Label="Filter by Name" Variant="Variant.Text" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" />
+    <MudButton OnClick="LoadData" Color="Color.Primary" Class="ml-2">Load Data</MudButton>
+</div>
+
+<MudPaper Class="pa-4">
+    <MudGrid>
+        <MudItem xs="12" sm="6">
+            <p><b>Total customers:</b> @($"{totalCustomers:N0}")</p>
+            <p><b>Min Income:</b> @currency(minIncome)</p>
+        </MudItem>
+        <MudItem xs="12" sm="6">
+            <p><b>Max Income:</b> @currency(maxIncome)</p>
+            <p><b>Average Income:</b> @currency(averageIncome)</p>
+        </MudItem>
+    </MudGrid>
+</MudPaper>
+
+<MudTable Items="customers" Hover="true" Dense="true" Loading="isLoading" Height="350px" Virtualize="true" FixedHeader="true" LoadingProgressColor="Color.Primary">
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+        <MudTh>State</MudTh>
+        <MudTh>Birthday</MudTh>
+        <MudTh>Annual Income</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="State">@context.State</MudTd>
+        <MudTd DataLabel="Birthday">@context.Birthday.ToShortDateString()</MudTd>
+        <MudTd DataLabel="Annual Income">@currency(context.AnnualIncome)</MudTd>
+    </RowTemplate>
+</MudTable>
+
+@code {
+    private List<Customer> customers = new();
+    private int totalCustomers = 0;
+    private decimal minIncome = 0;
+    private decimal maxIncome = 0;
+    private decimal totalIncome = 0;
+    private decimal averageIncome = 0;
+    private bool isLoading = false;
+
+    private string? nameFilter;
+    private int dataCount = 10_000; // Number of customers to generate
+
+    string currency<T>(INumber<T> c) where T : INumber<T>? => $"$ {c:N0}";
+
+    async Task LoadData()
+    {
+        // Reset statistics
+        customers.Clear();
+        totalCustomers = 0;
+        minIncome = decimal.MaxValue;
+        maxIncome = decimal.MinValue;
+        totalIncome = 0;
+        averageIncome = 0;
+
+        await foreach (var customer in DataService.GetDataAsync(dataCount, nameFilter))
+        {
+            customers.Add(customer);
+            totalCustomers++;
+
+            // Update statistics
+            if (customer.AnnualIncome < minIncome)
+                minIncome = customer.AnnualIncome;
+
+            if (customer.AnnualIncome > maxIncome)
+                maxIncome = customer.AnnualIncome;
+
+            totalIncome += customer.AnnualIncome;
+            averageIncome = totalIncome / totalCustomers;
+        }
+
+        StateHasChanged(); // Update the UI as data arrives
+    }
+}
